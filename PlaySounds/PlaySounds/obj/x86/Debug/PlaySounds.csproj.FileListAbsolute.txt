@@ -1,0 +1,8 @@
+C:\Users\Chris\AppData\Local\Temporary Projects\PlaySounds\bin\Debug\PlaySounds.exe
+C:\Users\Chris\AppData\Local\Temporary Projects\PlaySounds\bin\Debug\PlaySounds.pdb
+C:\Users\Chris\AppData\Local\Temporary Projects\PlaySounds\obj\x86\Debug\PlaySounds.exe
+C:\Users\Chris\AppData\Local\Temporary Projects\PlaySounds\obj\x86\Debug\PlaySounds.pdb
+C:\Git\TwelveTone\PlaySounds\PlaySounds\obj\x86\Debug\PlaySounds.exe
+C:\Git\TwelveTone\PlaySounds\PlaySounds\obj\x86\Debug\PlaySounds.pdb
+C:\Git\TwelveTone\PlaySounds\PlaySounds\bin\Debug\PlaySounds.exe
+C:\Git\TwelveTone\PlaySounds\PlaySounds\bin\Debug\PlaySounds.pdb
