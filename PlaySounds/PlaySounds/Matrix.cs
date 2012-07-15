@@ -99,5 +99,10 @@ namespace PlaySounds
         {
             return string.Join("\r\n", notes.Select(x => string.Join(" ", x.Select(n => n.ToString().PadRight(2)))));
         }
+
+        internal Note Note(int i, int j)
+        {
+            return notes[i][j];
+        }
     }
 }
