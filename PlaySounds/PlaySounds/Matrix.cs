@@ -7,18 +7,35 @@ namespace PlaySounds
 {
     public class Matrix
     {
-        Note[][] notes;
-        Dictionary<Note, int> noteToOrdinal;
-        Dictionary<int, Note> ordinalToNote;
-
-        public Matrix(Note[] firstRow)
+        public static Tone[] GetRandomFirstRow(Random randomNumberGenerator = null)
         {
+            randomNumberGenerator = randomNumberGenerator ?? new Random();
+            Tone[] firstRow = new Tone[12];
+            var firstFrequencies = Enumerable.Range(0, 12).Select(x => Tone.GetFrequency(x)).ToList();
+
+            for (int i = 0; i < 12; i++)
+            {
+                int nextIndex = randomNumberGenerator.Next(0, firstFrequencies.Count - 1);
+                firstRow[i] = new Tone(firstFrequencies[nextIndex]);
+                firstFrequencies.RemoveAt(nextIndex);
+            }
+
+            return firstRow;
+        }
+
+        Tone[][] notes;
+        Dictionary<Tone, int> noteToOrdinal;
+        Dictionary<int, Tone> ordinalToNote;
+
+        public Matrix(Tone[] firstRow = null)
+        {
+            firstRow = firstRow ?? GetRandomFirstRow();
             Validate(firstRow);
             InitializeVariables(firstRow);
             InitializeMatrix(firstRow);
         }
 
-        private void Validate(Note[] firstRow)
+        private void Validate(Tone[] firstRow)
         {
             if (firstRow.Length != 12)
             {
@@ -31,16 +48,16 @@ namespace PlaySounds
             }
         }
 
-        private void InitializeVariables(Note[] firstRow)
+        private void InitializeVariables(Tone[] firstRow)
         {
-            notes = new Note[12][];
+            notes = new Tone[12][];
             
             notes[0] = firstRow
                 .Select(x => Normalize(x, firstRow[0], firstRow[0] * 2))
                 .ToArray();
             for (int i = 1; i < 12; i++)
             {
-                notes[i] = new Note[12];
+                notes[i] = new Tone[12];
             }
 
             noteToOrdinal = notes[0]
@@ -51,20 +68,20 @@ namespace PlaySounds
                 .ToDictionary(x => x.Value, x => x.Key);
         }
 
-        private Note Normalize(Note x, int lowend, int highend)
+        private Tone Normalize(Tone x, int lowend, int highend)
         {
             while (lowend > (int)x)
             {
-                x = new Note(2 * (int)x);
+                x = new Tone(2 * (int)x);
             }
             while (highend <= (int)x)
             {
-                x = new Note((int)x / 2);
+                x = new Tone((int)x / 2);
             }
             return x;
         }
     
-        private void InitializeMatrix(Note[] firstRow)
+        private void InitializeMatrix(Tone[] firstRow)
         {
             for (int i = 1; i < 12; ++i)
             {
@@ -77,18 +94,17 @@ namespace PlaySounds
                     notes[i][j] = ordinalToNote[nextOrdinal];
                 }
             }
-            Console.WriteLine(ToString());
         }
 
-        public Note[] Row(int i)
+        public Tone[] Row(int i)
         {
             return notes[i].ToArray();
         }
 
-        public Note[] Column(int i)
+        public Tone[] Column(int i)
         {
-            Note[] column = new Note[12];
-            for (int j = 0; i < 12; i++)
+            Tone[] column = new Tone[12];
+            for (int j = 0; j < 12; j++)
             {
                 column[j] = notes[j][i];
             }
@@ -100,7 +116,7 @@ namespace PlaySounds
             return string.Join("\r\n", notes.Select(x => string.Join(" ", x.Select(n => n.ToString().PadRight(2)))));
         }
 
-        internal Note Note(int i, int j)
+        internal Tone Note(int i, int j)
         {
             return notes[i][j];
         }
