@@ -7,19 +7,19 @@ namespace PlaySounds
 {
     public class Note
     {
-        public static Note Rest(float seconds)
+        public static Note Rest(int milliseconds)
         {
-            return new Note(new Tone(0), seconds);
+            return new Note(new Tone(0), milliseconds);
         }
 
-        public Note(Tone tone, float seconds)
+        public Note(Tone tone, int milliseconds)
         {
             Tone = tone;
-            Seconds = seconds;
+            Milliseconds = milliseconds;
         }
 
         public Tone Tone { get; private set; }
 
-        public float Seconds { get; private set; }
+        public int Milliseconds { get; private set; }
     }
 }
